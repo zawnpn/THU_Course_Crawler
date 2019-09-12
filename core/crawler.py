@@ -15,8 +15,8 @@ class Crawler:
         self.sess = requests.Session()
         self.login_status = False
 
-    def get_captcha(self):
-        print('Initializing and recognizing captcha code...(Wait for about 1 minute)')
+    def get_captcha(self,appcode):
+        print('Recognizing captcha code...(Wait for about 1 minute)')
         self.sess.get(LOGIN_URL, headers=HEADERS)
         captcha_resp = self.sess.get(CAPTCHA_URL)
         # img = Image.open(BytesIO(captcha_resp.content))
@@ -25,7 +25,7 @@ class Crawler:
         img_base64 = base64.b64encode(captcha_resp.content)
         test_url = 'http://codevirify.market.alicloudapi.com/icredit_ai_image/verify_code/v1'
         headers = {
-            'Authorization': 'APPCODE %s' % APPCODE,
+            'Authorization': 'APPCODE %s' % appcode,
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         }
         data = {

@@ -9,10 +9,11 @@ if __name__ == "__main__":
     bot = cl.Crawler()
     username = input('Input username: ')
     password = getpass.getpass('Input password: ')
+    appcode = input('Input your captcha AppCode: ')
     # bot.get_captcha()
     # captchacode = input('Input captcha code: ')
     while not bot.login_status:
-        captchacode = bot.get_captcha()
+        captchacode = bot.get_captcha(appcode)
         bot.login(username, password, captchacode)
     if bot.login_status:
         flag = True
@@ -59,25 +60,22 @@ if __name__ == "__main__":
                     if continue_flag == 'n':
                         input_flag = False
                 msg = ''
-                select_count = 1
-                removed_count = 0
-                total_num = len(id1_list)
-                while removed_count < total_num:
-                    for (id1,id2) in zip(id1_list,id2_list):
+                attempt_count = 1
+                while id1_list:
+                    for i in range(len(id1_list)):
                         try:
-                            msg = bot.select_course(semester,id1,id2)
+                            msg = bot.select_course(semester,id1_list[i],id2_list[i])
                             if '成功' in msg or '冲突' in msg or '学位课' in msg:
-                                removed_count += 1
-                                id1_list.remove(id1)
-                                id2_list.remove(id2)
+                                id1_list.pop(i)
+                                id2_list.pop(i)
                         except:
                             msg = 'Failed'
                             bot.login_status = False
                             while not bot.login_status:
-                                captchacode = bot.get_captcha()
+                                captchacode = bot.get_captcha(appcode)
                                 bot.login(username, password, captchacode)
-                        print(str(select_count) + ': ' + msg)
-                        select_count += 1
+                        print(str(attempt_count) + ': ' + msg)
+                        attempt_count += 1
                         time.sleep(sleep_time)
             else:
                 print('Please input correct option!')

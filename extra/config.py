@@ -1,5 +1,3 @@
-APPCODE = '' # 此处填写你申请到的验证码API的 AppCode
-
 LOGIN_URL = 'http://zhjwxk.cic.tsinghua.edu.cn/xklogin.do'
 HOME_URL = 'http://zhjwxk.cic.tsinghua.edu.cn/xkYjs.vxkYjsXkbBs.do'
 CAPTCHA_URL = 'http://zhjwxk.cic.tsinghua.edu.cn/login-jcaptcah.jpg?captchaflag=login1'
