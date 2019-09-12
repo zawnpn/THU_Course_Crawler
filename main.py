@@ -43,6 +43,10 @@ if __name__ == "__main__":
                 semester = input('Input semester(Default:2019-2020-1): ')
                 if not semester:
                     semester = DEFAULT_SEMESTER
+                sleep_time = input('Input interval time(Suggest: 10): ')
+                if not sleep_time:
+                    sleep_time = '10'
+                sleep_time = float(sleep_time)
                 id1_list = []
                 id2_list = []
                 input_flag = True
@@ -72,7 +76,7 @@ if __name__ == "__main__":
                                 bot.login(username, password, captchacode)
                         print(str(select_count) + ': ' + msg)
                         select_count += 1
-                        time.sleep(10)
+                        time.sleep(sleep_time)
             else:
                 print('Please input correct option!')
             choice = input('='*60 + '\nBack to menu?[y/n]: ').lower()
