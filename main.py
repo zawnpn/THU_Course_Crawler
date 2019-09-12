@@ -68,6 +68,8 @@ if __name__ == "__main__":
                             msg = bot.select_course(semester,id1,id2)
                             if '成功' in msg:
                                 success_count += 1
+                                id1_list.remove(id1)
+                                id2_list.remove(id2)
                         except:
                             msg = 'Failed'
                             bot.login_status = False
