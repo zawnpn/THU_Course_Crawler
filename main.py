@@ -60,14 +60,14 @@ if __name__ == "__main__":
                         input_flag = False
                 msg = ''
                 select_count = 1
-                success_count = 0
+                removed_count = 0
                 total_num = len(id1_list)
-                while success_count < total_num:
+                while removed_count < total_num:
                     for (id1,id2) in zip(id1_list,id2_list):
                         try:
                             msg = bot.select_course(semester,id1,id2)
-                            if '成功' in msg:
-                                success_count += 1
+                            if '成功' in msg or '冲突' in msg or '学位课' in msg:
+                                removed_count += 1
                                 id1_list.remove(id1)
                                 id2_list.remove(id2)
                         except:
