@@ -62,19 +62,20 @@ if __name__ == "__main__":
                 msg = ''
                 attempt_count = 1
                 while id1_list:
+                    remove_count = 0
                     for i in range(len(id1_list)):
                         try:
-                            msg = bot.select_course(semester,id1_list[i],id2_list[i])
+                            msg = bot.select_course(semester,id1_list[i-remove_count],id2_list[i-remove_count])
                             if '成功' in msg or '冲突' in msg or '学位课' in msg:
-                                id1_list.pop(i)
-                                id2_list.pop(i)
+                                id1_list.pop(i-remove_count)
+                                id2_list.pop(i-remove_count)
+                                remove_count += 1
+                            print(str(attempt_count) + ': ' + msg)
                         except:
-                            msg = 'Failed'
                             bot.login_status = False
                             while not bot.login_status:
                                 captchacode = bot.get_captcha(appcode)
-                                bot.login(username, password, captchacode)
-                        print(str(attempt_count) + ': ' + msg)
+                                bot.login(username, password, captchacode)           
                         attempt_count += 1
                         time.sleep(sleep_time)
             else:
