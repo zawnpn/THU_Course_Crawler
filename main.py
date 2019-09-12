@@ -56,10 +56,14 @@ if __name__ == "__main__":
                         input_flag = False
                 msg = ''
                 select_count = 1
-                while '成功' not in msg:
+                success_count = 0
+                total_num = len(id1_list)
+                while success_count < total_num:
                     for (id1,id2) in zip(id1_list,id2_list):
                         try:
                             msg = bot.select_course(semester,id1,id2)
+                            if '成功' in msg:
+                                success_count += 1
                         except:
                             msg = 'Failed'
                             bot.login_status = False
